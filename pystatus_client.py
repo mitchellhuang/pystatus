@@ -14,7 +14,7 @@ DISK = "/"
 # Device for network info
 NETWORK = "eth0"
 # Keep the password on pystatus_client and pystatus_server the same
-PASSWORD = "yolo"
+PASSWORD = "secretpassword"
 
 #### End configuration ####
 
