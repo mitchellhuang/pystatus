@@ -22,7 +22,6 @@ import socket
 import platform
 import os
 import time
-import atexit
 import simplejson as json
 
 import psutil
@@ -36,22 +35,22 @@ def get_status():
     {
         "hostname":platform.node(),
         "dist":platform.dist(),
-        "results":[
+        "results":
         {
-            "cpu":[
+            "cpu":
             {
                 "load":os.getloadavg(),
                 "percent": psutil.cpu_percent(interval=1, percpu=True)
-            }],
-            "memory":[psutil.virtual_memory()],
-            "swap":[psutil.swap_memory()],
-            "disk":[psutil.disk_usage(DISK)],
-            "network":[
+            },
+            "memory":psutil.virtual_memory(),
+            "swap":psutil.swap_memory(),
+            "disk":psutil.disk_usage(DISK),
+            "network":
             {
                 "before":net_before,
                 "after":net_after
-            }],
-        }]
+            },
+        }
     }
     )
     return STATUS
