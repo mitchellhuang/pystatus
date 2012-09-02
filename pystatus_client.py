@@ -41,8 +41,10 @@ def get_status():
             "cpu":[
             {
                 "load":os.getloadavg(),
+                "percent": psutil.cpu_percent(interval=1, percpu=True)
             }],
             "memory":[psutil.virtual_memory()],
+            "swap":[psutil.swap_memory()],
             "disk":[psutil.disk_usage(DISK)],
             "network":[
             {

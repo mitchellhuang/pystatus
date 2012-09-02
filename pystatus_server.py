@@ -11,6 +11,8 @@ IP = "0.0.0.0"
 PORT = 7001
 # Keep the password on pystatus_client and pystatus_server the same
 PASSWORD = "yolo"
+# Timeout to get information from a client
+TIMEOUT = 5
 
 # Clients you want to monitor running pystatus_client
 # Use the IP and Port pystatus_client is running on
@@ -24,11 +26,15 @@ CLIENTS = ['0.0.0.0:7000']
 import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, 0)
+s.settimeout(TIMEOUT)
 s.bind((IP, PORT))
 
 for client in CLIENTS:
-    s.connect((client.split(':')[0], int(client.split(':')[1])))
-    s.send(PASSWORD)
-    data, addr = s.recvfrom(1024)
-    s.close()
-    print data
+    try:
+        s.connect((client.split(':')[0], int(client.split(':')[1])))
+        s.send(PASSWORD)
+        data, addr = s.recvfrom(1024)
+        s.close()
+        print data
+    except:
+        print "Request timed out or client not responding."
