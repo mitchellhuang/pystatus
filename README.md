@@ -1,11 +1,10 @@
 pystatus
 ========
 
-Server monitoring tool.
+Server monitoring tool that uses < 10MB of RAM.
 
 ## Requirements
 
-- Linux
 - Python 2.4 or higher
 - Flask (server)
 - psutil (client)
