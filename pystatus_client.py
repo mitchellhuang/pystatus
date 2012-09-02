@@ -22,6 +22,7 @@ import socket
 import platform
 import os
 import time
+import atexit
 import simplejson as json
 
 import psutil
@@ -31,32 +32,25 @@ def get_status():
     time.sleep(1)
     net_after = psutil.network_io_counters(pernic=True)[NETWORK]
 
-    # how 2 format json pls
-
     STATUS = json.dumps(
-        
     {
-        "hostname": platform.node(), 
-        "dist": platform.dist(), 
+        "hostname":platform.node(),
+        "dist":platform.dist(),
         "results":[
         {
             "cpu":[
             {
                 "load":os.getloadavg(),
-            }   
-            ],
+            }],
             "memory":[psutil.virtual_memory()],
             "disk":[psutil.disk_usage(DISK)],
             "network":[
             {
                 "before":net_before,
                 "after":net_after
-            }   
-            ],
-        }
-        ]
+            }],
+        }]
     }
-
     )
     return STATUS
 
@@ -64,11 +58,17 @@ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, 0)
 s.bind((IP,PORT))
 
 print "pystatus_client is listening on %s:%s." % (IP, PORT)
+print "Use CTRL-C to exit."
 
-while True:
-    data, addr = s.recvfrom(1024)
-    if data == PASSWORD:
-        print "Data requested from %s:%s." % addr
-        s.connect(addr)
-        s.send(get_status())
-        print "Data sent."
+try:
+    while True:
+        data, addr = s.recvfrom(1024)
+        if data == PASSWORD:
+            print "Data requested from %s:%s." % addr
+            s.connect(addr)
+            s.send(get_status())
+            print "Data sent."
+except KeyboardInterrupt:
+    print "\nShutting down socket server..."
+    s.close()
+    print "Goodbye!"

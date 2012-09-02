@@ -15,7 +15,7 @@ Server monitoring tool.
 Install on both:
 
 ```
-sudo apt-get install python python-pip
+sudo apt-get install python python-dev python-pip
 ```
 
 Client side only:
@@ -29,3 +29,5 @@ Server side only:
 ```
 sudo pip install flask
 ```
+
+If you are getting any GCC/compile errors, check to make sure you have python-dev and build-essential installed.
