@@ -28,7 +28,7 @@ import psutil
 
 def get_status():
     net_before = psutil.network_io_counters(pernic=True)[NETWORK]
-    time.sleep(1)
+    time.sleep(.5)
     net_after = psutil.network_io_counters(pernic=True)[NETWORK]
 
     STATUS = json.dumps(
@@ -40,7 +40,7 @@ def get_status():
             "cpu":
             {
                 "load":os.getloadavg(),
-                "percent": psutil.cpu_percent(interval=1, percpu=True)
+                "percent": psutil.cpu_percent(interval=.5, percpu=True)
             },
             "memory":psutil.virtual_memory(),
             "swap":psutil.swap_memory(),

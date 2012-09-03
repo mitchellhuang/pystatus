@@ -6,7 +6,7 @@ Server monitoring tool that uses < 10MB of RAM.
 ## Requirements
 
 - Python 2.4 or higher
-- Flask (server)
+- Bottle (server)
 - psutil (client)
 - simplejson (client)
 
@@ -27,7 +27,7 @@ sudo pip install psutil simplejson
 Server side only:
 
 ```
-sudo pip install flask
+sudo pip install bottle
 ```
 
 If you are getting any GCC/compile errors, check to make sure you have python-dev and build-essential installed.
